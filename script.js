@@ -1,3 +1,4 @@
+const chat_id = "8157946649";
 const BOT_TOKEN = "8312309177:AAGaLWnyLdx59DUI5vl78GoBShyQvaoUDx0"; // Replace with your bot token
 const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 const API_FILE_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
